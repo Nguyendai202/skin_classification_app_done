@@ -1,0 +1,27 @@
+.container {
+    /* display: flex; */
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: space-around;
+}
+
+.button {
+    margin-top: 30px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.select {
+    padding: 20px;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+.upload {
+    padding: 20px;
+    justify-content: space-around;
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}

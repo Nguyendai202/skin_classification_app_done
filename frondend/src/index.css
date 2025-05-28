@@ -1,0 +1,32 @@
+body {
+  background-color: rgb(142, 142, 142);
+  color: white;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+/* Đặt màu cho tất cả các thẻ khác nếu cần */
+a {
+  color: lightblue; /* Màu cho link, bạn có thể tùy chỉnh */
+}
+/* .ant-progress-text { /* class của Ant Design Progress */
+  /* color: white !important;
+} */ 
+/* 
+button {
+  background-color: grey;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+} */
+
+/* input, textarea {
+  background-color: black;
+  color: white;
+  border: 1px solid #fff;
+  padding: 5px;
+} */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

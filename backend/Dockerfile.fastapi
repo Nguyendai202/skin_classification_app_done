@@ -1,0 +1,38 @@
+# Use Python base image (dùng python 3.11, slim là bản nhẹ hơn)
+FROM python:3.11-slim
+
+# Set working directory (thư mục làm việc trong container)
+# các lệnh tiếp sẽ được thực thi từ thư mục này
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements and install Python dependencies (copy từ host vào)
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code (copy toàn bộ code từ thư mục backend hiện tại vào container)
+COPY . .
+
+# Expose port
+EXPOSE 6879
+
+# Start FastAPI application
+# 0.0.0.0 : cho phấp access từ bên ngoài container
+# port 6879 là để lắng nghe request
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "6879"]
+
+# Tạo môi trường Python độc lập
+# Cài đặt đầy đủ dependencies
+# Copy và cấu hình code FastAPI
+# Expose API service ra ngoài
+# Tối ưu kích thước image bằng cách:
+# Sử dụng base image slim
+# Xóa cache và temporary files
+# Cài đặt chỉ những packages cần thiết
+# Khi build và chạy, container này sẽ hoạt động như một API server độc lập, 
+# sẵn sàng xử lý requests từ frontend và giao tiếp với TF Serving container.

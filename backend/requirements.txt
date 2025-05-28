@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+numpy
+opencv-python
+tensorflow
+requests
+python-multipart
+aiofiles
+pillow
+python-jose[cryptography]
+openvino>=2023.0
+cmake
