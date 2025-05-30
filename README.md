@@ -33,7 +33,7 @@ skin_classification_app/
 
 Before running the application, download the model files and place them in `backend/weight/`.
 
-- [Download Models (Google Drive)](https://drive.google.com/file/d/1C1LGArkXkxAk3yoHawaJPSKvB8uRlQiN/view?usp=sharing)
+- [Download Models (Google Drive)](https://drive.google.com/drive/folders/1s30j99z5_RCbh42tzGAe6hrItXNq32o7?usp=sharing)
 
 **Instructions:**
 1. Download and extract the archive.
