@@ -73,6 +73,20 @@ $body = '{"instances": [[...your_test_data...]]}' # Replace with actual data
 Invoke-RestMethod -Method Post -Uri $uri -Headers $headers -Body $body
 ```
 
+1.1 Test tf serving riêng
+```
+docker run -t --rm -p 8501:8501 --mount type=bind,source=D:/TL_DH/khoaluantotnghip/skin_classification_app/backend/weight,target=/models --mount type=bind,source=D:/TL_DH/khoaluantotnghip/skin_classification_app/backend/model.config,target=/models/model.config tensorflow/serving --model_config_file=/models/model.config
+```
+```
+$imagePath = "D:/TL_DH/khoaluantotnghip/skin_classification_app/backend/image_test/1.jpg"
+
+# Read image as base64
+$imageBytes = [Convert]::ToBase64String([System.IO.File]::ReadAllBytes($imagePath))
+$floatArray = New-Object float[] (224*224*3); for($y = 0; $y -lt 224; $y++) { for($x = 0; $x -lt 224; $x++) { $pixel = $resized.GetPixel($x, $y); $i = ($y * 224 + $x) * 3; $floatArray[$i] = $pixel.R / 255.0; $floatArray[$i+1] = $pixel.G / 255.0; $floatArray[$i+2] = $pixel.B / 255.0 } }
+$payload = @{ "signature_name" = "serving_default"; "instances" = @(@($floatArray)) } | ConvertTo-Json -Depth 10 -Compress
+[System.IO.File]::WriteAllText("payload.json", $payload);
+curl.exe -X POST -H "Content-Type: application/json" --data-binary "@payload.json" http://localhost:8501/v1/models/autism:predict
+```
 2. Test Backend API:
 ```powershell
 $uri = "http://localhost:6879/predict-skin"

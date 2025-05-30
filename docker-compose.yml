@@ -1,4 +1,4 @@
-version: '3'
+
 services:
   tf-serving:
     build: 
@@ -8,11 +8,10 @@ services:
       - "8501:8501"  # REST API
       - "8500:8500"  # gRPC
     volumes: # mount thư mục từ host vào container
-      - ./backend/weight/convenetiny_full.keras:/models/skin_cancer/1/model.keras
-      - ./backend/weight/convenetiny_1_2_balanced.keras:/models/autism/1/model.keras
-      - ./backend/model.config:/models/model.config
+      - ./backend/weight:/models
     restart: always # tự động restart container nếu crash hoặc stop
-
+    networks:
+      - app-network # kết nối đến mạng app-network
   # FastAPI Backend service (service 2)
   backend:
     build:
@@ -25,17 +24,26 @@ services:
     environment:
       - TF_SERVING_URL=http://tf-serving:8501 # url để backend kết nối đến tf serving
     restart: always
-
+    networks:
+      - app-network
   # Frontend service
   frontend:
     build:
-      context: ./frontend
+      context: ./frondend
       dockerfile: Dockerfile
+    environment:
+      - VITE_BASE_URL_API_BACKEND=/api
     ports:
       - "80:80"
     depends_on: # phụ thuộc vào backend để đảm bảo backend đã khởi động trước
       - backend
     restart: always
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
+# tất cả services kết nối với nhau cùng app-network, giao tieesp với nhau qua tên 
 # TF Serving: Xử lý inference cho models
 # FastAPI Backend: API gateway và xử lý logic
 # Frontend: Giao diện người dùng

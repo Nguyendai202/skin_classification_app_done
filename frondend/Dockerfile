@@ -20,6 +20,8 @@ RUN npm run build
 FROM nginx:alpine
 
 # Copy built files from build stage
+# Copy các file đã build từ stage trước vào thư mục web root của nginx
+# Sử dụng multi-stage build để giảm kích thước image cuối cùng
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Copy nginx configuration
@@ -29,4 +31,5 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 
 # Start nginx
+#Chạy nginx ở foreground mode để container không tự tắt
 CMD ["nginx", "-g", "daemon off;"]

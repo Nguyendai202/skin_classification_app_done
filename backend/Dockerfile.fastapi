@@ -36,3 +36,5 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "6879"]
 # Cài đặt chỉ những packages cần thiết
 # Khi build và chạy, container này sẽ hoạt động như một API server độc lập, 
 # sẵn sàng xử lý requests từ frontend và giao tiếp với TF Serving container.
+
+# main_serving: lỗi tf serving ko support convenetiny
