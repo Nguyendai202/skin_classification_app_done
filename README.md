@@ -119,6 +119,8 @@ Configure these in your `.env` file or as system environment variables:
 1. Build and start all services:
     ```sh
     docker-compose up -d --build
+    docker run -d --name kltn2025_backend -p 6879:6879 nguyendai113/kltn2025_backend:latest
+    docker run -d --name kltn2025_frontend -p 80:80 nguyendai113/kltn2025:latest
     ```
 
 2. To stop all services:
